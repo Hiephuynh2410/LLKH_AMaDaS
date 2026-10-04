@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Nhập và xuất lý lịch khoa học theo Mẫu III.03-LLCN">
+
+    <title>Lý lịch khoa học • Hồ sơ nghiên cứu</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.20/build/pdfmake.min.js"></script>
+
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.20/build/vfs_fonts.js"></script>
+
+    <script defer src="app.js"></script>
+</head>
+<body>
+  <aside id="sidebar" aria-label="Điều hướng hồ sơ">
+    <button type="button" id="sidebarClose" class="sidebar-close" aria-label="Đóng menu">×</button>
+    <a class="brand" href="#task">LL<span>KH</span><small>HỒ SƠ NGHIÊN CỨU</small></a>
+    <div class="nav-caption">NỘI DUNG HỒ SƠ</div>
+    <nav id="nav" aria-label="Các mục lý lịch khoa học"></nav>
+  </aside>
+  <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+  <main id="mainContent">
+    <header><div><span class="eyebrow">KHÔNG GIAN HỒ SƠ CÁ NHÂN</span><h1>Lý lịch khoa học</h1></div></header>
+    <div class="toolbar">
+      <div class="toolbar-start">
+        <button type="button" id="sidebarToggle" class="sidebar-toggle" aria-label="Thu gọn menu" aria-controls="sidebar" aria-expanded="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <span class="save-state"><span class="dot"></span><span id="saveStatus" role="status">Chưa lưu</span></span>
+      </div>
+      <div class="actions">
+        <button type="button" id="importBtn">Nhập JSON</button>
+        <button type="button" id="backupBtn">Tải JSON</button>
+        <button type="button" id="previewBtn">Xem PDF</button>
+        <button type="button" class="primary" id="savePdfBtn">Lưu & xuất PDF ↓</button>
+      </div>
+    </div>
+    <div class="notice">Thông tin được lưu trên trình duyệt của thiết bị này. Tải JSON để sao lưu hoặc chuyển hồ sơ sang thiết bị khác.</div>
+    <form id="form">
+      <section class="card" id="task">
+        <div class="section-top"><span class="section-number">01</span><div><h2>Đăng ký nhiệm vụ</h2><p>Thông tin đầu trang của bản lý lịch khoa học.</p></div></div>
+        <label>Tên nhiệm vụ<textarea name="task" rows="2" placeholder="Nhập tên nhiệm vụ khoa học và công nghệ"></textarea></label>
+        <div class="checks"><label><input type="checkbox" name="leadRole"> Đăng ký chủ nhiệm nhiệm vụ</label><label><input type="checkbox" name="mainRole"> Đăng ký thực hiện chính / Thư ký khoa học</label></div>
+      </section>
+      <section class="card" id="personal">
+        <div class="section-top"><span class="section-number">02</span><div><h2>Thông tin cá nhân</h2><p>Các trường tương ứng mục 1–8 của mẫu.</p></div></div>
+        <div class="field-grid" id="personalFields"></div>
+      </section>
+      <div id="tableSections"></div>
+      <section class="card" id="other">
+        <div class="section-top"><span class="section-number">17</span><h2>Kết quả hoạt động KH&CN và sản xuất kinh doanh khác</h2></div>
+        <label>Nội dung<textarea name="other" rows="5" placeholder="Nhập kết quả hoạt động khác, nếu có"></textarea></label>
+      </section>
+      <section class="card" id="sign">
+        <div class="section-top"><span class="section-number">✓</span><div><h2>Xác nhận và chữ ký</h2><p>PDF chừa khoảng trống để ký và đóng dấu sau khi in.</p></div></div>
+        <div class="field-grid"><label>Địa danh<input name="place" placeholder="Ví dụ: Thành phố Hồ Chí Minh"></label><label>Ngày lập lý lịch<input name="signedDate" type="date"></label></div>
+        <label>Cam kết của đơn vị<textarea name="confirmation" rows="3" placeholder="Để trống để dùng nội dung xác nhận trong mẫu, có chèn họ tên của bạn."></textarea></label>
+      </section>
+    </form>
+    <footer><button type="button" id="clearBtn" class="danger">Xóa hồ sơ trên thiết bị</button><p>Kiểm tra thông tin trước khi ký xác nhận.</p></footer>
+  </main>
+  <input id="importFile" type="file" accept=".json,application/json" hidden>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="pdfDialog" aria-label="Xem trước bản PDF">
+    <div class="dialog-head"><strong>Xem trước bản PDF</strong><button type="button" id="closePdf" aria-label="Đóng xem trước">Đóng ×</button></div>
+    <iframe title="Lý lịch khoa học PDF" id="pdfFrame"></iframe>
+  </dialog>
+</body>
+</html>
