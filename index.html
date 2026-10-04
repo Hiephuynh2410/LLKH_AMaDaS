@@ -58,11 +58,61 @@
         <div class="section-top"><span class="section-number">17</span><h2>Kết quả hoạt động KH&CN và sản xuất kinh doanh khác</h2></div>
         <label>Nội dung<textarea name="other" rows="5" placeholder="Nhập kết quả hoạt động khác, nếu có"></textarea></label>
       </section>
-      <section class="card" id="sign">
-        <div class="section-top"><span class="section-number">✓</span><div><h2>Xác nhận và chữ ký</h2><p>PDF chừa khoảng trống để ký và đóng dấu sau khi in.</p></div></div>
-        <div class="field-grid"><label>Địa danh<input name="place" placeholder="Ví dụ: Thành phố Hồ Chí Minh"></label><label>Ngày lập lý lịch<input name="signedDate" type="date"></label></div>
-        <label>Cam kết của đơn vị<textarea name="confirmation" rows="3" placeholder="Để trống để dùng nội dung xác nhận trong mẫu, có chèn họ tên của bạn."></textarea></label>
-      </section>
+     <section class="card" id="sign">
+        <div class="section-top">
+            <span class="section-number">✓</span>
+
+            <div>
+                <h2>Xác nhận và chữ ký</h2>
+                <p>
+                    PDF có sẵn nội dung cam kết và họ tên người ký.
+                    Sau khi in, chỉ cần ký và đóng dấu.
+                </p>
+            </div>
+        </div>
+
+        <div class="field-grid">
+            <label>
+                Địa danh
+                <input
+                    name="place"
+                    placeholder="Ví dụ: Thành phố Hồ Chí Minh">
+            </label>
+
+            <label>
+                Ngày lập lý lịch
+                <input name="signedDate" type="date">
+            </label>
+
+            <label>
+                Họ tên cá nhân trong cam kết
+                <input
+                    name="commitmentName"
+                    placeholder="Để trống để lấy họ tên ở mục 1">
+            </label>
+
+            <label>
+                Họ tên cá nhân ký lý lịch
+                <input
+                    name="personalSignerName"
+                    placeholder="Để trống để lấy họ tên ở mục 1">
+            </label>
+
+            <label>
+                Họ tên đại diện đơn vị ký xác nhận
+                <input
+                    name="organizationSignerName"
+                    placeholder="Nhập họ tên đại diện đơn vị">
+            </label>
+
+            <label>
+                Chức vụ đại diện đơn vị
+                <input
+                    name="organizationSignerPosition"
+                    placeholder="Ví dụ: Hiệu trưởng, Giám đốc">
+            </label>
+        </div>
+    </section>
     </form>
     <footer><button type="button" id="clearBtn" class="danger">Xóa hồ sơ trên thiết bị</button><p>Kiểm tra thông tin trước khi ký xác nhận.</p></footer>
   </main>

@@ -547,202 +547,274 @@
         vLineWidth: () => 0.5
     };
 
-    function documentDefinition(data) {
-        function checkbox(checked) {
-            return {
-                canvas: [
-                    {
-                        type: 'rect',
-                        x: 5,
-                        y: 2,
-                        w: 10,
-                        h: 10,
-                        lineWidth: 0.7
-                    },
-                    ...(checked ? [
-                        {
-                            type: 'line',
-                            x1: 6,
-                            y1: 7,
-                            x2: 9,
-                            y2: 10,
-                            lineWidth: 1
-                        },
-                        {
-                            type: 'line',
-                            x1: 9,
-                            y1: 10,
-                            x2: 14,
-                            y2: 3,
-                            lineWidth: 1
-                        }
-                    ] : [])
-                ]
-            };
-        }
+    function documentDefinition(data = {}) {
+    const textValue = value => String(value ?? '').trim();
+    const blank = value => textValue(value) || '……………………';
 
-        const content = [
-            {
-                text: 'Mẫu III.03-LLCN\n09/2024/TT-BKHCN',
-                alignment: 'right',
-                fontSize: 10,
-                margin: [0, 0, 0, 14]
-            },
-            {
-                text: 'LÝ LỊCH KHOA HỌC',
-                alignment: 'center',
-                bold: true,
-                fontSize: 15
-            },
-            {
-                text:
-                    'CỦA CÁ NHÂN THỰC HIỆN NHIỆM VỤ ' +
-                    'KHOA HỌC VÀ CÔNG NGHỆ',
-                alignment: 'center',
-                bold: true,
-                fontSize: 11,
-                margin: [0, 5, 0, 16]
-            },
-            {
-                text: 'Tên nhiệm vụ: ' + blank(data.task),
-                margin: [0, 0, 0, 10]
-            },
-            {
-                table: {
-                    widths: ['*', 25],
-                    body: [
-                        [
-                            'ĐĂNG KÝ CHỦ NHIỆM NHIỆM VỤ:',
-                            checkbox(data.leadRole)
-                        ],
-                        [
-                            'ĐĂNG KÝ THỰC HIỆN CHÍNH / THƯ KÝ KHOA HỌC:',
-                            checkbox(data.mainRole)
-                        ]
-                    ]
+    const cell = value => ({
+        text: String(value ?? ''),
+        margin: [3, 4, 3, 4]
+    });
+
+    const tableLayout = {
+        hLineWidth: () => 0.5,
+        vLineWidth: () => 0.5
+    };
+
+    function checkbox(checked) {
+        return {
+            canvas: [
+                {
+                    type: 'rect',
+                    x: 5,
+                    y: 2,
+                    w: 10,
+                    h: 10,
+                    lineWidth: 0.7
                 },
-                margin: [0, 0, 0, 12]
-            }
-        ];
+                ...(checked ? [
+                    {
+                        type: 'line',
+                        x1: 6,
+                        y1: 7,
+                        x2: 9,
+                        y2: 10,
+                        lineWidth: 1
+                    },
+                    {
+                        type: 'line',
+                        x1: 9,
+                        y1: 10,
+                        x2: 14,
+                        y2: 3,
+                        lineWidth: 1
+                    }
+                ] : [])
+            ]
+        };
+    }
 
-        const info = [
-            `1. Họ và tên: ${blank(data.name)}`,
+    // =====================================================
+    // ĐẦU TRANG
+    // =====================================================
 
-            `2. Ngày/tháng/năm sinh: ${blank(data.birth)}\n` +
-            `   Nam/Nữ: ${blank(data.gender)}`,
-
-            `3. Số định danh cá nhân: ${blank(data.identity)}`,
-
-            `4. Học hàm: ${blank(data.academicTitle)}\n` +
-            `   Năm được phong học hàm: ${blank(data.titleYear)}\n` +
-            `   Học vị: ${blank(data.degree)}\n` +
-            `   Năm đạt học vị: ${blank(data.degreeYear)}`,
-
-            `5. Chức danh nghề nghiệp: ${blank(data.professionalTitle)}\n` +
-            `   Chức vụ: ${blank(data.position)}`,
-
-            `6. Điện thoại: ${blank(data.phone)}\n` +
-            `   E-mail: ${blank(data.email)}`,
-
-            `7. Địa chỉ: ${blank(data.address)}`,
-
-            `8. Nơi làm việc\n` +
-            `   Tên tổ chức: ${blank(data.organization)}\n` +
-            `   Tên người đứng đầu: ${blank(data.head)}\n` +
-            `   Điện thoại: ${blank(data.workPhone)}\n` +
-            `   Địa chỉ: ${blank(data.workAddress)}`
-        ];
-
-        content.push({
+    const content = [
+        {
+            text: 'Mẫu III.03-LLCN\n09/2024/TT-BKHCN',
+            alignment: 'right',
+            fontSize: 10,
+            margin: [0, 0, 0, 14]
+        },
+        {
+            text: 'LÝ LỊCH KHOA HỌC',
+            alignment: 'center',
+            bold: true,
+            fontSize: 15
+        },
+        {
+            text:
+                'CỦA CÁ NHÂN THỰC HIỆN NHIỆM VỤ ' +
+                'KHOA HỌC VÀ CÔNG NGHỆ',
+            alignment: 'center',
+            bold: true,
+            fontSize: 11,
+            margin: [0, 5, 0, 16]
+        },
+        {
+            text: 'Tên nhiệm vụ: ' + blank(data.task),
+            margin: [0, 0, 0, 10]
+        },
+        {
             table: {
-                widths: ['*'],
-                body: info.map(text => [cell(text)])
+                widths: ['*', 25],
+                body: [
+                    [
+                        'ĐĂNG KÝ CHỦ NHIỆM NHIỆM VỤ:',
+                        checkbox(data.leadRole)
+                    ],
+                    [
+                        'ĐĂNG KÝ THỰC HIỆN CHÍNH / THƯ KÝ KHOA HỌC:',
+                        checkbox(data.mainRole)
+                    ]
+                ]
             },
-            layout: tableLayout
-        });
+            margin: [0, 0, 0, 12]
+        }
+    ];
 
-        TABLES.forEach(table => {
-            const headers = table.number
-                ? ['TT', ...table.headers]
-                : table.headers;
+    // =====================================================
+    // THÔNG TIN CÁ NHÂN
+    // =====================================================
 
-            const rows = data[table.key]?.length
+    const info = [
+        `1. Họ và tên: ${blank(data.name)}`,
+
+        `2. Ngày/tháng/năm sinh: ${blank(data.birth)}\n` +
+        `   Nam/Nữ: ${blank(data.gender)}`,
+
+        `3. Số định danh cá nhân: ${blank(data.identity)}`,
+
+        `4. Học hàm: ${blank(data.academicTitle)}\n` +
+        `   Năm được phong học hàm: ${blank(data.titleYear)}\n` +
+        `   Học vị: ${blank(data.degree)}\n` +
+        `   Năm đạt học vị: ${blank(data.degreeYear)}`,
+
+        `5. Chức danh nghề nghiệp: ${blank(data.professionalTitle)}\n` +
+        `   Chức vụ: ${blank(data.position)}`,
+
+        `6. Điện thoại: ${blank(data.phone)}\n` +
+        `   E-mail: ${blank(data.email)}`,
+
+        `7. Địa chỉ: ${blank(data.address)}`,
+
+        `8. Nơi làm việc\n` +
+        `   Tên tổ chức: ${blank(data.organization)}\n` +
+        `   Tên người đứng đầu: ${blank(data.head)}\n` +
+        `   Điện thoại: ${blank(data.workPhone)}\n` +
+        `   Địa chỉ: ${blank(data.workAddress)}`
+    ];
+
+    content.push({
+        table: {
+            widths: ['*'],
+            body: info.map(value => [cell(value)])
+        },
+        layout: tableLayout
+    });
+
+    // =====================================================
+    // CÁC BẢNG THEO CẤU HÌNH TABLES HIỆN TẠI
+    // =====================================================
+
+    TABLES.forEach(table => {
+        const headers = table.number
+            ? ['TT', ...table.headers]
+            : table.headers;
+
+        const rows =
+            Array.isArray(data[table.key]) && data[table.key].length
                 ? data[table.key]
                 : [table.headers.map(() => '')];
 
-            // Số độ rộng luôn khớp với số cột.
-            const widths = headers.map((header, index) =>
-                table.number && index === 0 ? 23 : '*'
-            );
+        const widths = headers.map((header, index) =>
+            table.number && index === 0 ? 23 : '*'
+        );
 
-            content.push(
-                {
-                    text: table.title,
-                    bold: true,
-                    margin: [0, 12, 0, 5]
-                },
-                {
-                    table: {
-                        headerRows: 1,
-                        widths,
-                        body: [
-                            headers.map(header => ({
-                                ...cell(header),
-                                bold: true,
-                                alignment: 'center'
-                            })),
-                            ...rows.map((row, index) =>
-                                (
-                                    table.number
-                                        ? [String(index + 1), ...row]
-                                        : row
-                                ).map(cell)
-                            )
-                        ]
-                    },
-                    layout: tableLayout,
-                    fontSize: 10
-                }
-            );
-        });
+        const body = [
+            headers.map(header => ({
+                ...cell(header),
+                bold: true,
+                alignment: 'center'
+            })),
+
+            ...rows.map((row, index) => {
+                const values = table.headers.map(
+                    (header, column) => row[column] ?? ''
+                );
+
+                return (
+                    table.number
+                        ? [String(index + 1), ...values]
+                        : values
+                ).map(cell);
+            })
+        ];
 
         content.push(
             {
-                text:
-                    '17. Kết quả hoạt động KH&CN ' +
-                    'và sản xuất kinh doanh khác',
+                text: table.title,
                 bold: true,
                 margin: [0, 12, 0, 5]
             },
             {
                 table: {
-                    widths: ['*'],
-                    body: [[cell(data.other || ' ')]]
+                    headerRows: 1,
+                    widths,
+                    body
                 },
-                layout: tableLayout
+                layout: tableLayout,
+                fontSize: 10
             }
         );
+    });
 
-        let date = 'ngày ....... tháng ....... năm 20...';
+    // =====================================================
+    // KẾT QUẢ HOẠT ĐỘNG KHÁC
+    // =====================================================
 
-        if (/^\d{4}-\d{2}-\d{2}$/.test(data.signedDate || '')) {
-            const [year, month, day] = data.signedDate.split('-');
-
-            date = `ngày ${day} tháng ${month} năm ${year}`;
+    content.push(
+        {
+            text:
+                '17. Kết quả hoạt động KH&CN ' +
+                'và sản xuất kinh doanh khác',
+            bold: true,
+            margin: [0, 12, 0, 5]
+        },
+        {
+            table: {
+                widths: ['*'],
+                body: [[cell(data.other || ' ')]]
+            },
+            layout: tableLayout
         }
+    );
 
-        content.push(
+    // =====================================================
+    // NGÀY LẬP, CAM KẾT VÀ CHỮ KÝ
+    // =====================================================
+
+    let date = 'ngày ....... tháng ....... năm 20...';
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(data.signedDate || '')) {
+        const [year, month, day] = data.signedDate.split('-');
+
+        date = `ngày ${day} tháng ${month} năm ${year}`;
+    }
+
+    // Tên trong câu cam kết: ưu tiên ô riêng, sau đó lấy mục 1.
+    const commitmentName =
+        textValue(data.commitmentName) ||
+        textValue(data.name) ||
+        '……………………';
+
+    // Tên cá nhân in sẵn dưới chữ ký.
+    const personalSignerName =
+        textValue(data.personalSignerName) ||
+        textValue(data.name);
+
+    // Tên và chức vụ đại diện đơn vị.
+    const organizationSignerName =
+        textValue(data.organizationSignerName);
+
+    const organizationSignerPosition =
+        textValue(data.organizationSignerPosition);
+
+    // Luôn giữ toàn bộ nội dung cam kết.
+    // Không dùng data.confirmation để thay thế bằng một họ tên.
+    const commitmentText =
+        'Đơn vị đồng ý và sẽ dành thời gian cần thiết để ' +
+        'Ông, Bà ' + commitmentName +
+        ' chủ trì (tham gia) thực hiện nhiệm vụ KH&CN.';
+
+    // Giữ ngày lập, phần chữ ký và cam kết trong cùng một khối.
+    content.push({
+        unbreakable: true,
+
+        stack: [
             {
-                text: `${data.place || '............'}, ${date}`,
+                text:
+                    `${textValue(data.place) || '............'}, ${date}`,
                 alignment: 'right',
                 margin: [0, 18, 0, 12]
             },
+
             {
-                unbreakable: true,
-                columns: [
-                    {
-                        width: '*',
-                        stack: [
+                table: {
+                    widths: ['*', '*'],
+                    dontBreakRows: true,
+
+                    body: [
+                        [
                             {
                                 text:
                                     'TỔ CHỨC - NƠI LÀM VIỆC CỦA CÁ NHÂN ' +
@@ -750,26 +822,9 @@
                                     'THỰC HIỆN CHÍNH) NHIỆM VỤ KH&CN',
                                 bold: true,
                                 alignment: 'center',
-                                fontSize: 10
+                                fontSize: 10,
+                                margin: [0, 0, 0, 6]
                             },
-                            {
-                                text: '(Xác nhận và đóng dấu)',
-                                alignment: 'center'
-                            },
-                            {
-                                text: data.confirmation ||
-                                    'Đơn vị đồng ý và sẽ dành thời gian ' +
-                                    'cần thiết để Ông, Bà ' +
-                                    blank(data.name) +
-                                    ' chủ trì (tham gia) thực hiện nhiệm vụ KH&CN',
-                                margin: [0, 70, 0, 0],
-                                fontSize: 10
-                            }
-                        ]
-                    },
-                    {
-                        width: '*',
-                        stack: [
                             {
                                 text:
                                     'CÁ NHÂN ĐĂNG KÝ CHỦ NHIỆM\n' +
@@ -777,43 +832,119 @@
                                     'NHIỆM VỤ KH&CN',
                                 bold: true,
                                 alignment: 'center',
+                                fontSize: 10,
+                                margin: [0, 0, 0, 6]
+                            }
+                        ],
+
+                        [
+                            {
+                                text: '(Ký, ghi rõ họ tên và đóng dấu)',
+                                alignment: 'center',
+                                italics: true,
                                 fontSize: 10
                             },
                             {
-                                text: '(Họ, tên và chữ ký)',
-                                alignment: 'center'
+                                text: '(Ký và ghi rõ họ tên)',
+                                alignment: 'center',
+                                italics: true,
+                                fontSize: 10
+                            }
+                        ],
+
+                        // Khoảng trống để ký trực tiếp sau khi in.
+                        [
+                            {
+                                text: ' ',
+                                margin: [0, 0, 0, 72]
                             },
                             {
-                                text: data.name || '',
+                                text: ' ',
+                                margin: [0, 0, 0, 72]
+                            }
+                        ],
+
+                        // Họ tên được in sẵn dưới khoảng trống ký.
+                        [
+                            {
+                                text: organizationSignerName || ' ',
                                 bold: true,
                                 alignment: 'center',
-                                margin: [0, 80, 0, 0]
+                                fontSize: 11
+                            },
+                            {
+                                text: personalSignerName || ' ',
+                                bold: true,
+                                alignment: 'center',
+                                fontSize: 11
+                            }
+                        ],
+
+                        [
+                            {
+                                text: organizationSignerPosition || ' ',
+                                alignment: 'center',
+                                fontSize: 10,
+                                margin: [0, 3, 0, 0]
+                            },
+                            {
+                                text: ' '
                             }
                         ]
-                    }
-                ],
-                columnGap: 18
-            }
-        );
+                    ]
+                },
 
-        return {
-            pageSize: 'LETTER',
-            pageMargins: [72, 72, 72, 72],
-
-            defaultStyle: {
-                font: 'Roboto',
-                fontSize: 11,
-                lineHeight: 1.2
+                layout: {
+                    hLineWidth: () => 0,
+                    vLineWidth: () => 0,
+                    paddingLeft: column => column === 0 ? 0 : 9,
+                    paddingRight: column => column === 0 ? 9 : 0,
+                    paddingTop: () => 2,
+                    paddingBottom: () => 2
+                }
             },
 
-            content,
-
-            info: {
-                title: 'Lý lịch khoa học - ' + (data.name || 'Hồ sơ'),
-                author: data.name || ''
+            {
+                columns: [
+                    {
+                        width: '*',
+                        text: commitmentText,
+                        fontSize: 10,
+                        alignment: 'left'
+                    },
+                    {
+                        width: '*',
+                        text: ' '
+                    }
+                ],
+                columnGap: 18,
+                margin: [0, 12, 0, 0]
             }
-        };
-    }
+        ]
+    });
+
+    // =====================================================
+    // TRẢ VỀ CẤU HÌNH PDF — PHẦN BỊ THIẾU TRONG MÃ CŨ
+    // =====================================================
+
+    return {
+        pageSize: 'LETTER',
+        pageMargins: [72, 72, 72, 72],
+
+        defaultStyle: {
+            font: 'Roboto',
+            fontSize: 11,
+            lineHeight: 1.2
+        },
+
+        content,
+
+        info: {
+            title: 'Lý lịch khoa học - ' + (textValue(data.name) || 'Hồ sơ'),
+            author: textValue(data.name)
+        }
+    };
+}
 
     function makePdf(data) {
         if (!window.pdfMake) {
